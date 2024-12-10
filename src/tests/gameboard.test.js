@@ -85,6 +85,45 @@ describe('The gameboard', () => {
         expect(addedShip._hits).toEqual(0);
         expect(newGameboard.getValue(...[1,1])).toEqual(Gameboard.ALREADY_ATTACKED);
     })
-    it('keeps track of missed attacks', () => {})
-    it('reports when all ships have been sunk', () => {})
+
+    it('keeps track of missed attacks', () => {
+        const size = 10;
+        const newGameboard = new Gameboard(size);
+
+        newGameboard.receiveAttack(...[1,1]);
+        newGameboard.receiveAttack(...[5,3]);
+        newGameboard.receiveAttack(...[2,4]);
+        const attackArray = [`[1,1]`, `[5,3]`, `[2,4]`]
+        const attacks = new Set(attackArray);
+        
+        for (let row = 0; row < size; row++) {
+            for (let column = 0; column < size; column++) {
+                const coord = `[${row},${column}]`;
+                if (attacks.has(coord)) {
+                    expect(newGameboard.getValue(row, column)).toBe(Gameboard.ALREADY_ATTACKED);
+                } else {
+                    expect(newGameboard.getValue(row, column)).toBe(Gameboard.EMPTY);
+                }
+            }
+        }
+    })
+
+    it('reports when all ships have been sunk', () => {
+        const size = 10;
+        const shipOneCoords = [[4, 6], [4, 8]];
+        const shipTwoCoords = [[1, 3], [2, 3]];
+        const newGameboard = new Gameboard(size);
+        newGameboard.placeShip(...shipOneCoords);
+        newGameboard.placeShip(...shipTwoCoords);
+
+        newGameboard.receiveAttack(...[4,6]);
+        newGameboard.receiveAttack(...[4,7]);
+        newGameboard.receiveAttack(...[4,8]);
+        expect(newGameboard.allShipsSunk()).toBe(false);
+
+        newGameboard.receiveAttack(...[1,3]);
+        newGameboard.receiveAttack(...[2,3]);
+        expect(newGameboard.allShipsSunk()).toBe(true);
+
+    })
 })
