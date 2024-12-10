@@ -15,6 +15,7 @@ class Gameboard {
                                 );
         this._ships = [];
         this._coordsWithShips = new Map();
+        this._misses = [];
     }
 
     size() {
@@ -66,6 +67,7 @@ class Gameboard {
             this._board[row][column] = Gameboard.HIT;
         } else {
             this._board[row][column] = Gameboard.ALREADY_ATTACKED;
+            this._misses.push([row, column]);
         }
 
     }
