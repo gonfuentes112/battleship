@@ -39,15 +39,37 @@ describe('The gameboard', () => {
                 if (occupiedSet.has(`${coord}`)) {
                     expect(newGameboard.getValue(...coord)).toEqual(Gameboard.SHIP);
                 } else {
-                    console.log(`coord: ${coord}, value: ${newGameboard.getValue(...coord)}`)
                     expect(newGameboard.getValue(...coord)).toEqual(Gameboard.EMPTY);
                 }
             }            
         }
 
     })
-    it('receiveAttack method hits a ship with its coordinates', () => {})
-    it('receiveAttack misses with wrong coordinates', () => {})
+    it('receiveAttack method hits a ship with its coordinates', () => {
+        const size = 10;
+        const shipCoords = [[5, 6], [5, 9]];
+        const newGameboard = new Gameboard(size);
+        newGameboard.placeShip(...shipCoords);
+        const addedShip = newGameboard._ships[0];
+
+        newGameboard.receiveAttack(...[5, 9]);
+        
+        expect(addedShip._hits).toEqual(1);
+        expect(newGameboard.getValue(...[5,9])).toEqual(Gameboard.HIT);
+
+    })
+    it('receiveAttack misses with wrong coordinates', () => {
+        const size = 10;
+        const shipCoords = [[5, 6], [5, 9]];
+        const newGameboard = new Gameboard(size);
+        newGameboard.placeShip(...shipCoords);
+        const addedShip = newGameboard._ships[0];
+
+        newGameboard.receiveAttack(...[1,1]);
+        
+        expect(addedShip._hits).toEqual(0);
+        expect(newGameboard.getValue(...[1,1])).toEqual(Gameboard.ALREADY_ATTACKED);
+    })
     it('keeps track of missed attacks', () => {})
     it('reports when all ships have been sunk', () => {})
 })

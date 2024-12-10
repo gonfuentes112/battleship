@@ -4,6 +4,8 @@ class Gameboard {
     static EMPTY = 0;
     static SHIP = 1;
     static ALREADY_ATTACKED = 2;
+    static HIT = 3;
+
     constructor(size) {
         this._size = size;
         this._board = Array(size)
@@ -52,8 +54,20 @@ class Gameboard {
         dimensions.forEach((coord) => {
             const [row, column] = coord;
             this._board[row][column] = Gameboard.SHIP;
-            this._coordsWithShips[`${coord}`] = newShip;
+            this._coordsWithShips.set(`${coord}`, newShip);
         })
+    }
+
+    receiveAttack(row, column) {
+        const coord = `${[row, column]}`;
+        if (this._coordsWithShips.has(coord)) {
+            const hitShip = this._coordsWithShips.get(`${coord}`);
+            hitShip.hit();
+            this._board[row][column] = Gameboard.HIT;
+        } else {
+            this._board[row][column] = Gameboard.ALREADY_ATTACKED;
+        }
+
     }
 
 }
