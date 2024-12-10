@@ -25,13 +25,13 @@ class Gameboard {
         return this._board[row][column];
     }
 
-    getShipLength(begin, end) {
+    static getShipLength(begin, end) {
         const rowLength = Math.abs(end[0] - begin[0]) + 1;
         const columnLength = Math.abs(end[1] - begin[1]) + 1;
         return rowLength !== 1 ? rowLength : columnLength;
     }
 
-    getDimensions(begin, end) {
+    static getDimensions(begin, end) {
         const horizontal = begin[1] === end[1]
         const res = []
         if (horizontal) {
@@ -47,10 +47,10 @@ class Gameboard {
     }
 
     placeShip(begin, end) {
-        const newShip = new Ship(this.getShipLength(begin, end));
+        const newShip = new Ship(Gameboard.getShipLength(begin, end));
         this._ships.push(newShip);
 
-        const dimensions = this.getDimensions(begin, end);
+        const dimensions = Gameboard.getDimensions(begin, end);
         dimensions.forEach((coord) => {
             const [row, column] = coord;
             this._board[row][column] = Gameboard.SHIP;

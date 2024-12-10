@@ -14,6 +14,21 @@ describe('The gameboard', () => {
             })
         })
     })
+
+    it('getShipLength calculates length correctly', () => {
+        const shipCoordsOne = [[5, 6], [5, 9]];
+        const shipCoordsTwo = [[4, 6], [9, 6]];
+        expect(Gameboard.getShipLength(...shipCoordsOne)).toEqual(4);
+        expect(Gameboard.getShipLength(...shipCoordsTwo)).toEqual(6);
+    })
+
+    it('getDimensions calculates the corresponding coordinates', () => {
+        const shipCoordsOne = [[5, 6], [5, 9]];
+        const shipCoordsTwo = [[4, 6], [9, 6]];
+        expect(Gameboard.getDimensions(...shipCoordsOne)).toEqual([[5,6], [5,7], [5,8], [5,9]]);
+        expect(Gameboard.getDimensions(...shipCoordsTwo)).toEqual([[4, 6], [5, 6], [6, 6], [7, 6], [8, 6], [9, 6]]);
+    })
+
     it('places ships in the provided location', () => {
         const size = 10;
         const shipCoords = [[5, 6], [5, 9]];
@@ -28,7 +43,7 @@ describe('The gameboard', () => {
         expect(addedShip.isSunk()).toBe(false);
 
         const occupiedSet = new Set();
-        const occupiedCords = newGameboard.getDimensions(...shipCoords);
+        const occupiedCords = Gameboard.getDimensions(...shipCoords);
         occupiedCords.forEach((coord) => {
             occupiedSet.add(`${coord}`)
         })
