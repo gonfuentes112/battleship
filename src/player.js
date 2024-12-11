@@ -3,7 +3,7 @@ import { Gameboard } from "./gameboard";
 class Player {
     constructor(name) {
         this._name = name;
-        this._board = new Gameboard();
+        this._board = new Gameboard(10);
     }
 
     get name() {
