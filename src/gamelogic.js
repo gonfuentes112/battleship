@@ -95,9 +95,5 @@ function gameLogic() {
     return attackResult;
   }
 
-  return {
-    getRandomCoordinates,
   };
-}
-
-export { gameLogic };
+  export {gameLogic};
