@@ -23,9 +23,9 @@ describe('The gameboard', () => {
     })
 
     it('getDimensions calculates the corresponding coordinates', () => {
-        const shipCoordsOne = [[5, 6], [5, 9]];
+        const shipCoordsOne = [[5, 9], [5, 6]];
         const shipCoordsTwo = [[4, 6], [9, 6]];
-        expect(Gameboard.getDimensions(...shipCoordsOne)).toEqual([[5,6], [5,7], [5,8], [5,9]]);
+        expect(Gameboard.getDimensions(...shipCoordsOne)).toEqual([[5, 9], [5, 8], [5, 7], [5, 6]]);
         expect(Gameboard.getDimensions(...shipCoordsTwo)).toEqual([[4, 6], [5, 6], [6, 6], [7, 6], [8, 6], [9, 6]]);
     })
 

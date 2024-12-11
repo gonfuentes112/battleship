@@ -33,16 +33,33 @@ class Gameboard {
     }
 
     static getDimensions(begin, end) {
-        const horizontal = begin[1] === end[1]
-        const res = []
+        const horizontal = begin[1] === end[1];
+        const res = [];
+        let offset;
         if (horizontal) {
-            for (let i = begin[0]; i <= end[0]; i++) {
-                res.push([ i, begin[1]]);
+            offset = begin[0] < end[0] ? 1 : -1;
+            if (offset > 0) {
+                for (let i = begin[0]; i <= end[0]; i += offset) {
+                    res.push([ i, begin[1]]);
+                }
+            } else {
+                for (let i = begin[0]; i >= end[0]; i += offset) {
+                    res.push([ i, begin[1]]);
+                }
             }
+
         } else {
-            for (let i = begin[1]; i <= end[1]; i++) {
-                res.push([begin[0], i]);
+            offset = begin[1] < end[1] ? 1 : -1;
+            if (offset > 0) {
+                for (let i = begin[1]; i <= end[1]; i += offset) {
+                    res.push([begin[0], i]);
+                }
+            } else {
+                for (let i = begin[1]; i >= end[1]; i += offset) {
+                    res.push([begin[0], i]);
+                }
             }
+
         }
         return res;
     }
