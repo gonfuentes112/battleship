@@ -9,3 +9,5 @@ class Player {
         return this._board;
     }
 }
+
+export {Player}
