@@ -44,6 +44,18 @@ function gameLogic() {
         return [begin, end];
     }
 
+    function initializeShips(player) {
+        const fleetCoords = [];
+        ships.forEach((ship) => {
+            const playerCoords = getValidCoordinates(player.board, player.length);
+            player.board.placeShip(...playerCoords);
+            fleetCoords.push(playerCoords);
+        })
+        return fleetCoords;
+    }
+
+
+
     return {
         getRandomCoordinates
     }
