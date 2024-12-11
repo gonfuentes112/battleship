@@ -1,0 +1,52 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: black;
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    line-height: 1.5;
+    color: darkviolet;
+}
+
+#topdiv {
+    grid-row: 1;
+    grid-column: 2 / 10;
+    text-align: center;
+    font-size: 3rem;
+}
+
+#cpuboard {
+    grid-row: 2 / 5;
+    grid-column: 4 / 8;
+    background-color: gray;
+}
+
+#playerboard {
+    grid-row: 5 / 8;
+    grid-column: 4 / 8;
+    background-color: darkblue;
+}
+
+#buttoncontainer {
+    grid-row: 9;
+    grid-column: 4/8;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 5rem;
+}
+
+button {
+    height: 5rem;
+    width: 5rem;
+    background-color: black;
+    color: darkviolet;
+    border: 1px solid darkviolet;
+    border-radius: 0.5rem;
+}
