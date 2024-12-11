@@ -75,7 +75,9 @@ class Gameboard {
     canPlaceShip(begin, end) {
         const shipDimensions = Gameboard.getDimensions(begin, end);
         return shipDimensions.every((coord) => {
-            return this.getValue(...coord) === Gameboard.EMPTY;
+            return this.isValidCoord(...coord)
+                    && this.getValue(...coord) === Gameboard.EMPTY
+                    ;
         })
     }
 
