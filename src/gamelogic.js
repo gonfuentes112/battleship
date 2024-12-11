@@ -54,6 +54,14 @@ function gameLogic() {
         return fleetCoords;
     }
 
+    function attack(player, row, column) {
+        player.board.receiveAttack(row, column);
+        return player.board.getValue(row, column);
+    }
+
+    function hasPlayerLost(player) {
+        return player.board.allShipsSunk();
+    }
 
 
     return {
