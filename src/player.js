@@ -1,8 +1,13 @@
 import { Gameboard } from "./gameboard";
 
 class Player {
-    constructor() {
+    constructor(name) {
+        this._name = name;
         this._board = new Gameboard();
+    }
+
+    get name() {
+        return this._name;
     }
 
     get board() {
