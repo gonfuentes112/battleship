@@ -33,6 +33,16 @@ function gameLogic() {
 
     }
 
+    function getValidCoordinates(board, size, length) {
+        let isValid = false;
+        let begin, end
+        while (!isValid) {
+            [begin, end] = getRandomCoordinates(size, length);
+            isValid = board.canPlaceShip(begin, end);
+        }
+        return [begin, end];
+    }
+
     return {
         getRandomCoordinates
     }
