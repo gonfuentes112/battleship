@@ -12,7 +12,7 @@ body{
     grid-template-rows: repeat(10, 1fr);
     line-height: 1.5;
     color: darkviolet;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 
 #topdiv {
@@ -22,14 +22,21 @@ body{
     font-size: 3rem;
 }
 
-#cpuboard {
+#cpuboardcontainer {
     grid-row: 2 / 5;
     grid-column: 4 / 8;
+    min-height: 20vh;
+    min-width: 10vw;
+}
+
+#cpuboard {
     background-color: darkgray;
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
     cursor: pointer;
+    height: 100%;
+    width: 100%;
 }
 
 .cpublank {
@@ -37,14 +44,21 @@ body{
     border: 1px solid black;
 }
 
-#playerboard {
+#playerboardcontainer {
     grid-row: 5 / 8;
     grid-column: 4 / 8;
+    min-height: 20vh;
+    min-width: 10vw;
+}
+
+#playerboard {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
     background-color: darkblue;
     cursor: pointer;
+    height: 100%;
+    width: 100%;
 }
 
 .playerblank {
