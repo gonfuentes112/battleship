@@ -15,6 +15,16 @@ describe('The gameboard', () => {
         })
     })
 
+    it('isValidCoord correctly validates coordinates', () => {
+        const size = 10;
+        const newGameboard = new Gameboard(size);
+        expect(newGameboard.isValidCoord(...[0,5])).toBe(true);
+        expect(newGameboard.isValidCoord(...[-1,5])).toBe(false);
+        expect(newGameboard.isValidCoord(...[2,10])).toBe(false);
+        expect(newGameboard.isValidCoord(...[3,-4])).toBe(false);
+        expect(newGameboard.isValidCoord(...[5,11])).toBe(false);
+    })
+
     it('getShipLength calculates length correctly', () => {
         const shipCoordsOne = [[5, 6], [5, 9]];
         const shipCoordsTwo = [[4, 6], [9, 6]];

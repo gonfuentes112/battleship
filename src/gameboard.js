@@ -26,6 +26,14 @@ class Gameboard {
         return this._board[row][column];
     }
 
+    isValidCoord(row, column) {
+        return (row >= 0
+                && row < this.size()
+                && column >= 0
+                && column < this.size()
+            );
+    }
+
     static getShipLength(begin, end) {
         const rowLength = Math.abs(end[0] - begin[0]) + 1;
         const columnLength = Math.abs(end[1] - begin[1]) + 1;
