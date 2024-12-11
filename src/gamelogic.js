@@ -5,6 +5,7 @@ function gameLogic() {
     const human = new Player("p1");
     const cpu = new Player("p2");
 
+
     const ships = {
         "carrier" : {length : 5},
         "battleship" : {length : 4},
@@ -13,10 +14,7 @@ function gameLogic() {
         "patrolboat" : {length : 2},
     }
 
-    function getRandomCoordinates(size, length) {
-        const row = Math.floor(Math.random() * size);
-        const column = Math.floor(Math.random() * size);
-
+    function getRandomDirection() {
         const signs = [1, -1];
         const axes = [0, 1];
         const randomSignIndex = Math.floor(Math.random());
@@ -24,6 +22,13 @@ function gameLogic() {
 
         const sign = signs[randomSignIndex];
         const axis = axes[randomAxisIndex];
+        return [sign, axis];
+    }
+
+    function getRandomCoordinates(size, length) {
+        const row = Math.floor(Math.random() * size);
+        const column = Math.floor(Math.random() * size);
+        const [sign, axis] = getRandomDirection();
 
         const begin = [row, column];
         let end = [row, column];
@@ -58,6 +63,7 @@ function gameLogic() {
         player.board.receiveAttack(row, column);
         return player.board.getValue(row, column);
     }
+
 
     function hasPlayerLost(player) {
         return player.board.allShipsSunk();
