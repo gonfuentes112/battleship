@@ -14,6 +14,12 @@ function gameLogic() {
         "patrolboat" : {length : 2},
     }
 
+    function getRandomCoord(size) {
+        const row = Math.floor(Math.random() * size);
+        const column = Math.floor(Math.random() * size);
+        return [row, column];
+    }
+
     function getRandomDirection() {
         const signs = [1, -1];
         const axes = [0, 1];
@@ -26,8 +32,7 @@ function gameLogic() {
     }
 
     function getRandomCoordinates(size, length) {
-        const row = Math.floor(Math.random() * size);
-        const column = Math.floor(Math.random() * size);
+        const [row, column] = getRandomCoord(size);
         const [sign, axis] = getRandomDirection();
 
         const begin = [row, column];
