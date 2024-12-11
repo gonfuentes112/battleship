@@ -12,6 +12,7 @@ body{
     grid-template-rows: repeat(10, 1fr);
     line-height: 1.5;
     color: darkviolet;
+    gap: 0.5rem;
 }
 
 #topdiv {
@@ -24,13 +25,31 @@ body{
 #cpuboard {
     grid-row: 2 / 5;
     grid-column: 4 / 8;
-    background-color: gray;
+    background-color: darkgray;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
+    cursor: pointer;
+}
+
+.cpublank {
+    background-color: darkgray;
+    border: 1px solid black;
 }
 
 #playerboard {
     grid-row: 5 / 8;
     grid-column: 4 / 8;
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: repeat(10, 1fr);
     background-color: darkblue;
+    cursor: pointer;
+}
+
+.playerblank {
+    background-color: darkblue;
+    border: 1px solid black;
 }
 
 #buttoncontainer {
@@ -49,4 +68,8 @@ button {
     color: darkviolet;
     border: 1px solid darkviolet;
     border-radius: 0.5rem;
+}
+
+.hidden {
+    display: none;
 }
