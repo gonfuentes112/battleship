@@ -4,7 +4,8 @@ import { Player } from "./player";
 function gameLogic() {
     const human = new Player("p1");
     const cpu = new Player("p2");
-
+    let lastCpuAttackSuccess = false;
+    let lastCpuAttackCoord;
 
     const ships = {
         "carrier" : {length : 5},
@@ -40,7 +41,6 @@ function gameLogic() {
         end[axis] += sign * length;
 
         return [begin, end];
-
     }
 
     function getValidCoordinates(board, length) {
@@ -73,6 +73,27 @@ function gameLogic() {
     function hasPlayerLost(player) {
         return player.board.allShipsSunk();
     }
+
+    function cpuAttack() {
+        let nextCoord;
+        if(lastCpuAttackSuccess) {
+            let nextValid = false;
+            while (!nextValid) {
+                nextCoord = lastCpuAttackCoord;
+                const [sign, index] = getRandomDirection();
+                nextCoord[index] += sign;
+                nextValid = (human.board.isValidCoord(nextCoord)
+                            && human.board.getValue(nextCoord) !== Gameboard.ALREADY_ATTACKED);
+            }            
+        } else {
+            nextCoord = getRandomCoord(human.board.size());
+        }
+        const attackResult = attack(human, ...nextCoord);
+        lastCpuAttackSuccess = attackResult === Gameboard.HIT;
+        lastCpuAttackCoord = nextCoord;
+
+        return attackResult;
+       }
 
 
     return {
