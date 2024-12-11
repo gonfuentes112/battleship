@@ -29,6 +29,23 @@ describe('The gameboard', () => {
         expect(Gameboard.getDimensions(...shipCoordsTwo)).toEqual([[4, 6], [5, 6], [6, 6], [7, 6], [8, 6], [9, 6]]);
     })
 
+    it('canPlaceShip correctly resolves if there is empty space for a ship', () => {
+        const size = 10;
+        const existingShipCoords = [[5, 6], [5, 9]];
+        const newGameboard = new Gameboard(size);
+        expect(newGameboard.canPlaceShip(...existingShipCoords)).toBe(true);
+        newGameboard.placeShip(...existingShipCoords);
+
+        const overlapHorizontalCoords = [[5, 3], [5, 7]];
+        const overlapVerticalCoords = [[4, 7], [7, 7]];
+        const noOverlap = [[6,6], [6,9]];
+
+        expect(newGameboard.canPlaceShip(...overlapHorizontalCoords)).toBe(false);
+        expect(newGameboard.canPlaceShip(...overlapVerticalCoords)).toBe(false);
+        expect(newGameboard.canPlaceShip(...noOverlap)).toBe(true);    
+
+    }) 
+
     it('places ships in the provided location', () => {
         const size = 10;
         const shipCoords = [[5, 6], [5, 9]];

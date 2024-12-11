@@ -64,6 +64,13 @@ class Gameboard {
         return res;
     }
 
+    canPlaceShip(begin, end) {
+        const shipDimensions = Gameboard.getDimensions(begin, end);
+        return shipDimensions.every((coord) => {
+            return this.getValue(...coord) === Gameboard.EMPTY;
+        })
+    }
+
     placeShip(begin, end) {
         const newShip = new Ship(Gameboard.getShipLength(begin, end));
         this._ships.push(newShip);
