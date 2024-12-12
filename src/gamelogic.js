@@ -7,13 +7,20 @@ function gameLogic() {
   let lastCpuAttackSuccess = false;
   let lastCpuAttackCoord;
 
-  const ships = {
-    carrier: { length: 5 },
-    battleship: { length: 4 },
-    destroyer: { length: 3 },
-    submarine: { length: 3 },
-    patrolboat: { length: 2 },
-  };
+  const ships = new Map();
+  ships.set("carrier", 5)
+  ships.set("battleship", 4)
+  ships.set("destroyer", 3)
+  ships.set("submarine", 3)
+  ships.set("patrolboat", 2)
+
+
+  function getPlayer(player) {
+    if (player === "human") {
+        return human;
+    }
+    return cpu;
+  }
 
   function getRandomCoord(size) {
     const row = Math.floor(Math.random() * size);
@@ -24,8 +31,8 @@ function gameLogic() {
   function getRandomDirection() {
     const signs = [1, -1];
     const axes = [0, 1];
-    const randomSignIndex = Math.floor(Math.random());
-    const randomAxisIndex = Math.floor(Math.random());
+    const randomSignIndex = Math.floor(Math.random() * 2);
+    const randomAxisIndex = Math.floor(Math.random() * 2);
 
     const sign = signs[randomSignIndex];
     const axis = axes[randomAxisIndex];
@@ -38,7 +45,7 @@ function gameLogic() {
 
     const begin = [row, column];
     let end = [row, column];
-    end[axis] += sign * length;
+    end[axis] += sign * (length-1);
 
     return [begin, end];
   }
@@ -56,11 +63,13 @@ function gameLogic() {
 
   function initializeShips(player) {
     const fleetCoords = [];
-    ships.forEach((ship) => {
-      const playerCoords = getValidCoordinates(player.board, player.length);
-      player.board.placeShip(...playerCoords);
-      fleetCoords.push(playerCoords);
-    });
+    let board = player.board;
+    ships.forEach((length) => {
+        const playerCoords = getValidCoordinates(board, length);
+        board.placeShip(...playerCoords);
+        fleetCoords.push(Gameboard.getDimensions(...playerCoords));
+    } ) 
+
     return fleetCoords;
   }
 
@@ -94,6 +103,11 @@ function gameLogic() {
 
     return attackResult;
   }
+
+  return {
+    initializeShips,
+    getPlayer
+    }
 
   };
   export {gameLogic};

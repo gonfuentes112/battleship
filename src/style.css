@@ -87,3 +87,7 @@ button {
 .hidden {
     display: none;
 }
+
+.cell {
+    min-height: 1.5rem;
+}
