@@ -40,7 +40,15 @@ body{
 
 .cpublank {
     background-color: darkgray;
-    border: 1px solid black;
+
+}
+
+.cpuwater {
+    background-color: darkblue;
+}
+
+.cpuhit {
+    background-color: darkred;
 }
 
 #playerboardcontainer {
@@ -89,8 +97,9 @@ button {
 
 .cell {
     min-height: 1.5rem;
+    border: 1px solid black;
 }
 
-.cursorEnabled {
+.cursorenabled {
     cursor: pointer;
 }

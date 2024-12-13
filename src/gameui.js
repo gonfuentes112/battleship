@@ -1,3 +1,4 @@
+import { Gameboard } from "./gameboard";
 import { gameLogic } from "./gamelogic";
 
 function gameUi() {
@@ -69,12 +70,29 @@ function gameUi() {
 
     }
 
+    function receiveAttackUi(event) {
+        const cell = event.target;
+        if (!cell.classList.contains('cpublank')) {
+            return;
+        }
+        const cpu = logic.getPlayer('cpu');
+        const row = cell.dataset.row;
+        const column = cell.dataset.column;
+        cell.classList.toggle('cpublank');
+        const attackResult = logic.attack(cpu, row, column);
+        if (attackResult === Gameboard.ALREADY_ATTACKED) {
+            cell.classList.toggle('cpuwater');
+        } else {
+            cell.classList.toggle('cpuhit');
+        }
+    }
+
     function startGameUi() {
         placeButton.classList.toggle('hidden');
         startButton.classList.toggle('hidden');
         resetButton.classList.toggle('hidden');
         const cpuBoard = document.getElementById('cpuboard');
-        cpuBoard.classList.toggle('cursorEnabled');
+        cpuBoard.classList.toggle('cursorenabled');
         cpuBoard.addEventListener('click', (event) => {
             receiveAttackUi(event);
         })
