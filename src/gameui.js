@@ -69,7 +69,19 @@ function gameUi() {
 
     }
 
+    function startGameUi() {
+        placeButton.classList.toggle('hidden');
+        startButton.classList.toggle('hidden');
+        resetButton.classList.toggle('hidden');
+        const cpuBoard = document.getElementById('cpuboard');
+        cpuBoard.classList.toggle('cursorEnabled');
+        cpuBoard.addEventListener('click', (event) => {
+            receiveAttackUi(event);
+        })
+    }
+
     placeButton.addEventListener('click', placeShipsUi);
+    startButton.addEventListener('click', startGameUi);
 }
 
 export {gameUi}

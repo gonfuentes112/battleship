@@ -34,7 +34,6 @@ body{
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
-    cursor: pointer;
     height: 100%;
     width: 100%;
 }
@@ -90,4 +89,8 @@ button {
 
 .cell {
     min-height: 1.5rem;
+}
+
+.cursorEnabled {
+    cursor: pointer;
 }
