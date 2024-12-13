@@ -90,6 +90,10 @@ function gameUi() {
         }
 
         cpuAttackUi();
+        const human = logic.getPlayer('human');
+        if (logic.hasPlayerLost(human)) {
+            gameOver("You lose!");
+        }
     }
 
     function startGameUi() {
