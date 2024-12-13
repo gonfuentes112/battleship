@@ -63,6 +63,7 @@ body{
 .playerblank {
     background-color: darkblue;
     border: 1px solid black;
+    text-align: center;
 }
 
 #buttoncontainer {
