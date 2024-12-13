@@ -5,11 +5,11 @@ import {initializeCpuBoard, initializePlayerBoard} from "./uimodules"
 function gameUi() {
     initializeCpuBoard();
     initializePlayerBoard();
+    const placeButton = document.getElementById('place');
     const startButton = document.getElementById('start');
     const resetButton = document.getElementById('reset');
     startButton.classList.toggle('hidden');
     resetButton.classList.toggle('hidden');
-    const placeButton = document.getElementById('place');
 
     let logic;
 
@@ -106,8 +106,21 @@ function gameUi() {
         }
     }
 
+    function resetGame() {
+        placeButton.classList.toggle('hidden');
+        placeButton.innerText = "Place ships";
+        resetButton.classList.toggle('hidden');
+        const cpuboard = document.getElementById('cpuboard');
+        cpuboard.innerHTML = "";
+        const playerboard = document.getElementById('playerboard');
+        playerboard.innerHTML = "";
+        initializeCpuBoard();
+        initializePlayerBoard();
+    }
+
     placeButton.addEventListener('click', placeShipsUi);
     startButton.addEventListener('click', startGameUi);
+    resetButton.addEventListener('click', resetGame);
 }
 
 export {gameUi}
