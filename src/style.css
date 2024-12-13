@@ -70,7 +70,11 @@ body{
 .playerblank {
     background-color: darkblue;
     border: 1px solid black;
-    text-align: center;
+}
+
+.playerhit {
+    background-color: darkred;
+    color: black;
 }
 
 #buttoncontainer {
@@ -98,6 +102,7 @@ button {
 .cell {
     min-height: 1.5rem;
     border: 1px solid black;
+    text-align: center;
 }
 
 .cursorenabled {

@@ -88,6 +88,8 @@ function gameUi() {
         if (logic.hasPlayerLost(cpu)) {
             gameOver("You win!");
         }
+
+        cpuAttackUi();
     }
 
     function startGameUi() {
@@ -108,6 +110,16 @@ function gameUi() {
         const winnerDiv = document.getElementById('winnerdiv');
         winnerDiv.innerText = message;
 
+    }
+
+    function cpuAttackUi() {
+        const {result, coord:[row, column]} = logic.cpuAttack();
+        const targetCell = document.querySelector(`.playerblank[data-row="${row}"][data-column="${column}"]`)
+        if (result === Gameboard.ALREADY_ATTACKED) {
+            targetCell.innerText = "X";
+        } else {
+            targetCell.classList.toggle('playerhit');
+        }
     }
 
     placeButton.addEventListener('click', placeShipsUi);

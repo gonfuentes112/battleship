@@ -85,30 +85,55 @@ function gameLogic() {
   function cpuAttack() {
     let nextCoord;
     if (lastCpuAttackSuccess) {
-      let nextValid = false;
-      while (!nextValid) {
-        nextCoord = lastCpuAttackCoord;
-        const [sign, index] = getRandomDirection();
-        nextCoord[index] += sign;
-        nextValid =
-          human.board.isValidCoord(nextCoord) &&
-          human.board.getValue(nextCoord) !== Gameboard.ALREADY_ATTACKED;
+      const [row, column] = lastCpuAttackCoord;
+      const nextMoves = [ [row + 1, column],
+                          [row - 1, column],
+                          [row, column + 1],
+                          [row, column - 1]
+      ]
+      const validMoves = nextMoves.filter((coord) => {
+        const humanBoard = human.board;
+        return humanBoard.isValidCoord(...coord)
+              && humanBoard.getValue(...coord) !== Gameboard.ALREADY_ATTACKED
+              && humanBoard.getValue(...coord) !== Gameboard.HIT;
+
+      })
+      if (validMoves.length > 0) {
+        const randomIndex = Math.floor(Math.random() * validMoves.length);
+        nextCoord = validMoves[randomIndex];
+      } else {
+        nextCoord = randomAttack();       
       }
     } else {
-      nextCoord = getRandomCoord(human.board.size());
+      nextCoord = randomAttack();
     }
     const attackResult = attack(human, ...nextCoord);
     lastCpuAttackSuccess = attackResult === Gameboard.HIT;
     lastCpuAttackCoord = nextCoord;
 
-    return attackResult;
+    return {result: attackResult,
+          coord: nextCoord
+    };
+
+    function randomAttack() {
+      let nextCoord;
+      let isValid = false;
+      const humanBoard = human.board;
+      while (!isValid) {
+        nextCoord = getRandomCoord(human.board.size());
+        isValid = humanBoard.getValue(...nextCoord) !== Gameboard.ALREADY_ATTACKED
+              && humanBoard.getValue(...nextCoord) !== Gameboard.HIT;
+      }
+      return nextCoord;
+    }
   }
 
   return {
     initializeShips,
     getPlayer,
     attack,
-    hasPlayerLost
+    hasPlayerLost,
+    cpuAttack
     }
 
   };
