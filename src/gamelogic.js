@@ -107,7 +107,8 @@ function gameLogic() {
   return {
     initializeShips,
     getPlayer,
-    attack
+    attack,
+    hasPlayerLost
     }
 
   };

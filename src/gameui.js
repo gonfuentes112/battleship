@@ -85,6 +85,9 @@ function gameUi() {
         } else {
             cell.classList.toggle('cpuhit');
         }
+        if (logic.hasPlayerLost(cpu)) {
+            gameOver("You win!");
+        }
     }
 
     function startGameUi() {
@@ -96,6 +99,15 @@ function gameUi() {
         cpuBoard.addEventListener('click', (event) => {
             receiveAttackUi(event);
         })
+    }
+
+    function gameOver(message) {
+        const cpuBoard = document.getElementById('cpuboard');
+        cpuBoard.classList.toggle('cursorenabled');
+        cpuBoard.setAttribute('inert', true);
+        const winnerDiv = document.getElementById('winnerdiv');
+        winnerDiv.innerText = message;
+
     }
 
     placeButton.addEventListener('click', placeShipsUi);
