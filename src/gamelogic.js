@@ -8,16 +8,15 @@ function gameLogic() {
   let lastCpuAttackCoord;
 
   const ships = new Map();
-  ships.set("carrier", 5)
-  ships.set("battleship", 4)
-  ships.set("destroyer", 3)
-  ships.set("submarine", 3)
-  ships.set("patrolboat", 2)
-
+  ships.set("carrier", 5);
+  ships.set("battleship", 4);
+  ships.set("destroyer", 3);
+  ships.set("submarine", 3);
+  ships.set("patrolboat", 2);
 
   function getPlayer(player) {
     if (player === "human") {
-        return human;
+      return human;
     }
     return cpu;
   }
@@ -45,7 +44,7 @@ function gameLogic() {
 
     const begin = [row, column];
     let end = [row, column];
-    end[axis] += sign * (length-1);
+    end[axis] += sign * (length - 1);
 
     return [begin, end];
   }
@@ -65,10 +64,10 @@ function gameLogic() {
     const fleetCoords = [];
     let board = player.board;
     ships.forEach((length) => {
-        const playerCoords = getValidCoordinates(board, length);
-        board.placeShip(...playerCoords);
-        fleetCoords.push(Gameboard.getDimensions(...playerCoords));
-    } ) 
+      const playerCoords = getValidCoordinates(board, length);
+      board.placeShip(...playerCoords);
+      fleetCoords.push(Gameboard.getDimensions(...playerCoords));
+    });
 
     return fleetCoords;
   }
@@ -86,23 +85,25 @@ function gameLogic() {
     let nextCoord;
     if (lastCpuAttackSuccess) {
       const [row, column] = lastCpuAttackCoord;
-      const nextMoves = [ [row + 1, column],
-                          [row - 1, column],
-                          [row, column + 1],
-                          [row, column - 1]
-      ]
+      const nextMoves = [
+        [row + 1, column],
+        [row - 1, column],
+        [row, column + 1],
+        [row, column - 1],
+      ];
       const validMoves = nextMoves.filter((coord) => {
         const humanBoard = human.board;
-        return humanBoard.isValidCoord(...coord)
-              && humanBoard.getValue(...coord) !== Gameboard.ALREADY_ATTACKED
-              && humanBoard.getValue(...coord) !== Gameboard.HIT;
-
-      })
+        return (
+          humanBoard.isValidCoord(...coord) &&
+          humanBoard.getValue(...coord) !== Gameboard.ALREADY_ATTACKED &&
+          humanBoard.getValue(...coord) !== Gameboard.HIT
+        );
+      });
       if (validMoves.length > 0) {
         const randomIndex = Math.floor(Math.random() * validMoves.length);
         nextCoord = validMoves[randomIndex];
       } else {
-        nextCoord = randomAttack();       
+        nextCoord = randomAttack();
       }
     } else {
       nextCoord = randomAttack();
@@ -111,9 +112,7 @@ function gameLogic() {
     lastCpuAttackSuccess = attackResult === Gameboard.HIT;
     lastCpuAttackCoord = nextCoord;
 
-    return {result: attackResult,
-          coord: nextCoord
-    };
+    return { result: attackResult, coord: nextCoord };
 
     function randomAttack() {
       let nextCoord;
@@ -121,8 +120,9 @@ function gameLogic() {
       const humanBoard = human.board;
       while (!isValid) {
         nextCoord = getRandomCoord(human.board.size());
-        isValid = humanBoard.getValue(...nextCoord) !== Gameboard.ALREADY_ATTACKED
-              && humanBoard.getValue(...nextCoord) !== Gameboard.HIT;
+        isValid =
+          humanBoard.getValue(...nextCoord) !== Gameboard.ALREADY_ATTACKED &&
+          humanBoard.getValue(...nextCoord) !== Gameboard.HIT;
       }
       return nextCoord;
     }
@@ -133,8 +133,7 @@ function gameLogic() {
     getPlayer,
     attack,
     hasPlayerLost,
-    cpuAttack
-    }
-
+    cpuAttack,
   };
-  export {gameLogic};
+}
+export { gameLogic };
