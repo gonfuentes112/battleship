@@ -30,13 +30,21 @@ function gameUi() {
     resetButton.classList.toggle('hidden');
     const placeButton = document.getElementById('place');
 
-    let logic = gameLogic();
+    let logic;
 
     function placeShipsUi() {
         if (startButton.classList.contains('hidden')) {
             startButton.classList.toggle('hidden');
         }
         placeButton.innerText = "Another one";
+        const playerCells = document.querySelectorAll('.playerblank');
+        playerCells.forEach((cell) => {
+            if (cell.innerText !== "") {
+                cell.innerText = "";
+            }
+        })
+
+        logic = gameLogic();
 
         initializeShipsUi("human");
         // initializeShipsUi("p2");
