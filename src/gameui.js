@@ -47,12 +47,11 @@ function gameUi() {
         logic = gameLogic();
 
         initializeShipsUi("human");
-        // initializeShipsUi("p2");
+        initializeShipsUi("cpu");
 
     }
 
     function initializeShipsUi(player) {
-        let board;
         if (player === "human") {
             const logicPlayer = logic.getPlayer(player);
             const fleetCoords = logic.initializeShips(logicPlayer);
@@ -64,7 +63,8 @@ function gameUi() {
                 })
             })
         } else {
-            board = logic.cpu.board();
+            const logicCpu = logic.getPlayer(player);
+            logic.initializeShips(logicCpu);
         }
 
     }
